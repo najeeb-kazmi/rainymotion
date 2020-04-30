@@ -264,8 +264,11 @@ class Sparse:
                            'affine': sktf.AffineTransform(),
                            'projective': sktf.ProjectiveTransform()}
 
-        # scale input data to uint8 [0-255] with self.scaler
-        data_scaled, c1, c2 = self.scaler(self.input_data)
+        if self.scaler is not None:
+            # scale input data to uint8 [0-255] with self.scaler
+            data_scaled, c1, c2 = self.scaler(self.input_data)
+        else:
+            data_scaled = self.input_data
 
         # set up transformer object
         trf = transformations[self.warper]
@@ -413,8 +416,11 @@ class SparseSD:
                            'affine': sktf.AffineTransform(),
                            'projective': sktf.ProjectiveTransform()}
 
-        # scale input data to uint8 [0-255] with self.scaler
-        data_scaled, c1, c2 = self.scaler(self.input_data)
+        if self.scaler is not None:
+            # scale input data to uint8 [0-255] with self.scaler
+            data_scaled, c1, c2 = self.scaler(self.input_data)
+        else:
+            data_scaled = self.input_data
 
         # set up transformer object
         trf = transformations[self.warper]
@@ -720,8 +726,11 @@ class Dense:
 
         """
 
-        # scale input data to uint8 [0-255] with self.scaler
-        scaled_data, c1, c2 = self.scaler(self.input_data)
+        if self.scaler is not None:
+            # scale input data to uint8 [0-255] with self.scaler
+            scaled_data, c1, c2 = self.scaler(self.input_data)
+        else:
+            scaled_data = self.input_data
 
         # calculate optical flow
         of = _calculate_of(scaled_data, method=self.of_method,
@@ -839,8 +848,11 @@ class DenseRotation:
 
         """
 
-        # scale input data to uint8 [0-255] with self.scaler
-        scaled_data, c1, c2 = self.scaler(self.input_data)
+        if self.scaler is not None:
+            # scale input data to uint8 [0-255] with self.scaler
+            scaled_data, c1, c2 = self.scaler(self.input_data)
+        else:
+            scaled_data = self.input_data
 
         # calculate optical flow
         of = _calculate_of(scaled_data, method=self.of_method,
